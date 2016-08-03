@@ -5,24 +5,19 @@
 # License: according to LICENSE.md in the root directory of the PX4 Firmware repository
 set -e
 
-if [ "$#" -lt 1 ]
+do_clean=true
+
+if [ "$1" = "-o" ]
 then
-	echo usage: run_tests.bash firmware_src_dir
-	echo ""
-	exit 1
+	echo not cleaning
+	do_clean=false
 fi
 
-SRC_DIR=$1
-JOB_DIR=$SRC_DIR/..
-BUILD=posix_sitl_default
-# TODO
-ROS_TEST_RESULT_DIR=/root/.ros/test_results/px4
-ROS_LOG_DIR=/root/.ros/log
-PX4_LOG_DIR=${SRC_DIR}/build_${BUILD}/src/firmware/posix/rootfs/fs/microsd/log
-TEST_RESULT_TARGET_DIR=$JOB_DIR/test_results
-# BAGS=/root/.ros
-# CHARTS=/root/.ros/charts
-# EXPORT_CHARTS=/sitl/testing/export_charts.py
+pushd `dirname $0` > /dev/null
+SCRIPTPATH=`pwd`
+popd > /dev/null
+ORIG_SRC="$SCRIPTPATH/.."
+ROS_HOME="~/.ros"
 
 # source ROS env
 if [ -f /opt/ros/indigo/setup.bash ]
@@ -35,31 +30,52 @@ else
 	echo "could not find /opt/ros/{ros-distro}/setup.bash"
 	exit 1
 fi
-source $SRC_DIR/integrationtests/setup_gazebo_ros.bash $SRC_DIR
+
+JOB_DIR=$ROS_HOME
+CATKIN_DIR=/tmp/catkin
+BUILD_DIR=$CATKIN_DIR/build/px4
+SRC_DIR=${CATKIN_DIR}/src/px4
+
+echo ros home $ROS_HOME
+echo src dir $SRC_DIR
+echo build dir $BUILD_DIR
+
+ROS_TEST_RESULT_DIR=$ROS_HOME/test_results/px4
+ROS_LOG_DIR=$ROS_HOME/log
+PX4_LOG_DIR=$ROS_HOME/src/firmware/posix/rootfs/fs/microsd/log
+TEST_RESULT_TARGET_DIR=$JOB_DIR/test_results
+
+# TODO
+# BAGS=$ROS_HOME
+# CHARTS=$ROS_HOME/charts
+# EXPORT_CHARTS=/sitl/testing/export_charts.py
+
+source /usr/share/gazebo/setup.sh
+source $SCRIPTPATH/setup_gazebo_ros.bash ${SRC_DIR} ${BUILD_DIR}
 
 echo "deleting previous test results ($TEST_RESULT_TARGET_DIR)"
 if [ -d ${TEST_RESULT_TARGET_DIR} ]; then
 	rm -r ${TEST_RESULT_TARGET_DIR}
 fi
 
-# FIXME: Firmware compilation seems to CD into this directory (/root/Firmware)
-# when run from "run_container.bash". Why?
-if [ -d /root/Firmware ]; then
-	rm /root/Firmware
+if $do_clean
+then
+	rm -rf $CATKIN_DIR
 fi
-ln -s ${SRC_DIR} /root/Firmware
-
-echo "=====> compile ($SRC_DIR)"
-cd $SRC_DIR
-make ${BUILD}
-make --no-print-directory gazebo_build
-echo "<====="
+mkdir -p $CATKIN_DIR/src
+if ! [ -d $SRC_DIR ]
+then
+	ln -s $ORIG_SRC $SRC_DIR
+fi
+cd $CATKIN_DIR
+catkin_make -j4
+. ./devel/setup.bash
 
 # don't exit on error anymore from here on (because single tests or exports might fail)
 set +e
 echo "=====> run tests"
-rostest px4 mavros_posix_tests_iris.launch
-rostest px4 mavros_posix_tests_standard_vtol.launch
+rostest px4 mavros_posix_tests_iris.launch headless:=false
+rostest px4 mavros_posix_tests_standard_vtol.launch headless:=false
 TEST_RESULT=$?
 echo "<====="
 
