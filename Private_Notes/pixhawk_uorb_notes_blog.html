@@ -1,0 +1,1121 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+   
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>pixhawk自学笔记之uorb学习总结 - Mr.A的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="1.开始》运行》输入“regedit”，打开注册表，找到下面的注册表路径： HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R18.0右击鼠标删除R18.0整个键值，特别注意：还有一个R16.0是CAD2004版本的键值，千万不要删除。2.找到下面的注册表路径：HKEY_CORRENT_user\SOFTWARE\Autodesk\AutoCA" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/dark1/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/xiao2yizhizai/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/blue_black.css" />
+ 
+
+
+</head>
+<body>
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/xiao2yizhizai">Mr.A的专栏</a></h2>
+            <h3>菜鸟的学习笔记</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/xiao2yizhizai?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/xiao2yizhizai?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/xiao2yizhizai/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "xiao2yizhizai";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/xiao2yizhizai";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://ask.csdn.net/subjects/5
+">
+<font color=red>【专家问答】阿里陈康贤：探讨大型网站之架构
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/51423859">
+<font color=blue>走进VR开发世界——我们离开发一款VR大作还有多远？</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/robbin2015/article/details/51446176">
+<font color=red>CSDN发福利啦！C币、京东卡、现金任你选
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+
+</font></a>
+</div>                        </div>
+                        
+
+
+
+<!-- 广告位开始 -->
+<ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!-- 广告位结束 -->
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+ <script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/xiao2yizhizai/article/details/50684450">
+        pixhawk自学笔记之uorb学习总结            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/pixhawk' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">pixhawk</a><a href='http://www.csdn.net/tag/uorb' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">uorb</a><a href='http://www.csdn.net/tag/%e8%bf%9b%e7%a8%8b%e9%97%b4%e9%80%9a%e4%bf%a1' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">进程间通信</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2016-02-18 10:37</span>
+            <span class="link_view" title="阅读次数">325人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('pixhawk自学笔记之uorb学习总结','50684450');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(50684450,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            var lib = eval("("+$("#lib").attr("value")+")");
+            var html = "";
+            if (lib.err == 0) {
+                $.each(lib.data, function (i) {
+                    var obj = lib.data[i];
+                    //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                    html += ' <a href="' + obj.url + '" target="_blank">';
+                    html += ' <img src="' + obj.logo + '">';
+                    html += ' <em><b>' + obj.name + '</b></em>';
+                    html += ' </a>';
+                });
+                if (html != "") {
+                    setTimeout(function () {
+                        $("#lib").html(html);
+                        /*
+                        var testhtml = "";
+                        testhtml += '<a href="#">';
+                        testhtml += '<img src="http://img.knowledge.csdn.net/upload/base/1455589744328_328.jpg">';
+                        testhtml += '<em>Android知识库</em>';
+                        testhtml += '</a>';
+                        $(".embody_c").html(testhtml);
+                        */
+                        $("#embody").show();
+                    }, 100);
+                }
+            }          
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('6098528','xiao2yizhizai','top','50684450');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">pixhawk开源飞控相关<em>（7）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/xiao2yizhizai/article/category/6098528"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_6098528">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p><br>
+</p>
+<p>注：这是看过好多文章总结出来的，转载了较多人的博客，希望有知道原出处的人把地址留下，我贴上来。在此谢谢各位前辈的总结。（我会在后续笔记中贴出在我自己的程序中对于uorb的使用）</p>
+<p><br>
+</p>
+<p></p>
+<p align="left">进程与应用程序（传感器应用程序发送传感器数据到姿态过滤应用程序）之间的通讯是pixhawk软件架构的重要组成部分，进程（即所谓的节点）通过命名的总线交换消息称之为“主题”，在pixhawk中，一个主题仅包含一种消息类型，例如：vehicle_attitude主题传输包含姿态结构（翻滚，俯仰和偏航估算）。节点可以在总线，主题上发布一跳消息或者订阅总线，主题。通讯双方之间并不知道在与谁通讯，可以存在多个发布或一条消息有多个订阅者。这种设计模式可以防止锁定的问题。</p>
+<p align="left">pixhawk的发布订阅机制是通过“微对象请求代理”（uORB）来实现的。</p>
+<p align="left">快速入门：</p>
+<p align="left">在深入细节之前，以下是一对简单，完整的发布/订阅模型。发布者发布一条名为“random——integer”的主题并用随机整数更新该主题。订阅者检查并打印这些更新。</p>
+<p align="left"><br>
+</p>
+<pre name="code" class="cpp">topic.h
+/* declare the topic */
+ORB_DECLARE(random_integer);/* define the data structure that will be published where subscribers can see it */
+struct random_integer_data {int r;};
+
+publisher.c
+#include &lt;topic.h&gt;/* create topic metadata */
+ORB_DEFINE(random_integer);/* file handle that will be used for publishing */
+static int topic_handle;
+int init(){/* generate the initial data for first publication */
+	struct random_integer_data rd = { .r = random(), };/* advertise the topic and make the initial publication */
+	topic_handle = orb_advertise(ORB_ID(random_integer), &amp;rd);
+}
+int update_topic(){/* generate a new random number for publication */
+	struct random_integer_data rd = { .r = random(), };/* publish the new data structure */
+	orb_publish(ORB_ID(random_integer), topic_handle, &amp;rd);
+}
+
+subscriber.c
+#include &lt;topic.h&gt;/* file handle that will be used for subscribing */
+static int topic_handle;
+int init(){/* subscribe to the topic */
+	topic_handle = orb_subscribe(ORB_ID(random_integer));
+}
+void check_topic(){
+	bool updated;struct random_integer_data rd;/* check to see whether the topic has updated since the last time we read it */
+	orb_check(topic_handle, &amp;updated);
+	if (updated) {/* make a local copy of the updated data structure */
+		orb_copy(ORB_ID(random_integer), topic_handle, &amp;rd);
+		printf(&quot;Random integer is now %d\n&quot;, rd.r);
+		}
+}</pre><br>
+<p align="left">发布：</p>
+<p align="left">&nbsp; &nbsp; 发布分为三个独立但又相关的行为；确定主题，公告主题和发布主题更新。</p>
+<p align="left">&nbsp;</p>
+<p align="left">确定主题：</p>
+<p align="left">&nbsp; &nbsp; pixhawk系统为提供部件之前的通用接口定义了许多标准主题，如果发布者想使用标准主题和相关的数据结构不需要做额外的工作。</p>
+<p align="left">&nbsp;</p>
+<p align="left">自定义主题</p>
+<p align="left">&nbsp; &nbsp; 要定义一个自定义主题，发布者需要提供给订阅者一个头文件（参考上面的topic.h），在这个头文件中必须有：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 1.用主题的名称做作为参数调用ORB_DECLARE（）宏来定义一个实例</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 2.定义一个结构体，用来描述将要用来发布的数据结构</p>
+<p align="left">主题的名称应该要具有描述性，pixhawk的管理使用下划线来分割主题名称为独立的部分并且首选更通用的术语表示元件的名称。</p>
+<p align="left">&nbsp; &nbsp; 例如：raw sensor data发布在sensors_raw主题</p>
+<p align="left">&nbsp;</p>
+<p align="left">除了头文件，发布者必须要具有使用ORB_DEFINE()宏在源码中定义一个实例，当固件被构建时，他将被编译并且链接到固件。</p>
+<p align="left">可选主题：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 如果一个主题通过一个软件组件来发布，那么它属于可选主题，并且可能不会存在于发布后的固件，这种情况下，头文件也可以改用ORB_DECLARE_OPTIONAL()宏来替代，以这种方式声明主题，发布者不需要专门来处理什么。但在下面讨论的也有额外要处理的情况，当处理可选主题时订阅者必须要注意。</p>
+<p align="left">&nbsp;</p>
+<p align="left">公告主题：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 在数据被发布到一个主题前，它必须被公告，发布者可以使用下面的API来公告一个新的主题。</p>
+<span style="white-space:pre"></span><pre name="code" class="cpp">    extern int orb_advertise(const struct orb_metadata *meta, const void *data);</pre>
+<p align="left">&nbsp; &nbsp; 公告也可以发布初始化数据到主题，meta参数是传递给API的一个指针，指向由ORB_DEFINE()宏定义好的数据，通常使用ORB_ID()宏来根据主题名称获取该指针。请注意，虽然主题更新可以从中断处理函数发布，公告主题必须在常规的线程上下文中执行。</p>
+<p align="left">多个发布：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 只有一个发布者可以具有发布一次一个主题，但是该主题手柄可以被关闭，因为是文件描述符，可以通过close(）函数关闭。&nbsp;</p>
+<p align="left">发布更新：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 一旦公告了一个主题，公告主题后返回的句柄可使用下面的API来发布主题更新。</p>
+<span style="white-space:pre"><span style="white-space:pre"></span></span><pre name="code" class="cpp">    extern int orb_publish(const struct orb_metadata *meta, int handle, const void *data);</pre><span style="white-space:pre"> &nbsp;</span>U<span style="white-space:pre">ORB不换冲多个更新，当用户检查一个主题，他们将只能看到最新的更新。</span><br>
+<br>
+<p><span style="white-space:pre"></span></p>
+<p align="left">订阅者：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 订阅主题的要求如下：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 1.调用ORB_DEFINE()或ORB_DEFINE_OPTIONAL()宏（在订阅者的头文件中包含他们）</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 2.发布到主题的数据结构定义（通常与发布者使用同一头文件）</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 如果满足上面的条件后，订阅者可以使用下面的api来订阅一个主题：</p>
+<span style="white-space:pre"></span><pre name="code" class="cpp">    extern int orb_subscribe(const struct orb_metadata *meta);</pre>
+<p align="left"><br>
+</p>
+<p align="left">&nbsp;如果可选主题不存在于固件之中，订阅到可选的主题将会失败，但其他主题即便发布者没有进行公告也会订阅成功，这样可大大降低系统对启动顺序的安排。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 这里没有专门来限制一个任务的最大订阅数。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 要取消订阅一个主题，可以用下面的API：</p>
+<span style="white-space:pre"></span><pre name="code" class="cpp">    extern int orb_unsubscribe(int handle);</pre><br>
+<p><span style="white-space:pre"><span style="white-space:pre"><span style="white-space:pre"></span></span></span></p>
+<p align="left">拷贝数据到主题：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 订阅者不能引用ORB中存储的数据或其他订阅共享的数据，而是在订阅者请求时从ORB拷贝数据到订阅者的临时缓冲区。副本拷贝的方式可以避免锁定ORB的问题，并保持两者之间（发布者，订阅者）的API接口简单。它也允许订阅者在必要的时候直接修改拷贝副本的数据供自己使用。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 当订阅者想要把主题中的最新数据拷贝一份全新的副本，可以使用：</p>
+<p align="left"><span style="white-space:pre"></span><pre name="code" class="cpp">    extern int orb_copy(const struct orb_metadata *meta, int handle, void *buffer);  </pre></p>
+<p align="left"><span style="white-space:pre"></span></p>
+<p align="left">&nbsp;拷贝是以原子操作进行的，所以可以保证获取到发布者最新的数据。</p>
+<p align="left">检查更新：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 订阅者可以使用下面的API来检查一个主题在发布者最后更新后，有没有人调用过orb_copy来接收，处理：</p>
+<p align="left"><span style="white-space:pre"></span><pre name="code" class="cpp">    extern int orb_check(int handle, bool *updated);      </pre><span style="white-space:pre"></span></p>
+<p align="left">&nbsp; &nbsp;如果主题在被公告前就有人订阅，那么这个API将返回“not-updated”直到主题被公告。</p>
+<p align="left"></p>
+<p align="left">发布时间戳：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 订阅者可以使用下面的API来检查一个主题最后发布的时间。</p>
+<span style="white-space:pre"></span><pre name="code" class="cpp">    extern int orb_stat(int handle, uint64_t *time);</pre><span style="white-space:pre">
+</span>需要注意的是，要小心的使用这个调用，因为不能保证再调用返回后不久主题就不会被发布（调用返回后不久，主题可能马上又被发布，导致最后更新时间错误）
+<p align="left"><span style="white-space:pre"><br>
+</span></p>
+<p align="left"><span style="white-space:pre"><br>
+</span></p>
+<p align="left"><span style="white-space:pre"></span></p>
+<p align="left">uORB的管理罗辑是通过创建线程后台运行方式实现。</p>
+<p align="left">uORB深入探索</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORB是pixhawk系统中非常重要的一个模块，它肩负了整个系统的数据传输任务，所有的传感器数据，GPS,ppm信号等都要从芯片获取后通过uORB进行传输到各个模块进行计算处理。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 1.uORB的架构简述：</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;uORB是一套跨进程的IPC通讯模块。在pixhawk中，所有的功能被独立以进程模块为单位进行实现并工作。而进城间的数据交互尤为重要，必须要能够符号实时，有序的特点。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; pixhawk使用nuttx实时ARM系统，而uORB对于nuttx而言，它仅仅是一个普通的文件设备对象，这个设备支持open，close，read，write，ioctl以及poll机制。通过这些接口的实现，uORB提供了一套“点对多”的跨进程广播通讯机制。“点”指的是通讯消息的“源”，“多”指的是一个源可以有多个用户来接受，处理。而源和用户的关系在于，源不需要去考虑用户是否课余i收到某条被广播的消息或什么时候收到这条消息。它只是需要单纯的把要广播的数据推送到uORB的消息总线上，对于用户而言，源推送了多少次的小心也不重要，重要的是取回最新的这条消息。</p>
+<p align="left">&nbsp;</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 2.uORB的实现位于固件源码的src/modules/uORB/uORB.cpp文件，它通过重载CDev基类来组织一个uORB的设备实例。并且完成Read/Write等功能的重载。uORB的入口点是uorb_main函数，在这里它检查uORB的启动参数来完成对应的功能，uORB支持start/test/status这3条启动参数，在pixhawk的rcS启动脚本中，使用start参数来进行初始化，其他2个参数分别用来进行uORB功能的自检和列出uORB的当前状态。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 在rcS中使用start参数启动后，uORB会创建并初始化它的设备实例，其中的实现大部分都在CDev基类完成。这个过程类&#20284;于Linux设备驱动中的Probe函数，通过init调用完成设备的创建，节点注册以及派遣例程的设置等。</p>
+<p align="left">&nbsp;</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 源码解读：（最新版本的uORB）</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORB文件夹说明</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; 1.uORB文件夹结构</p>
+<span style="white-space:pre"><img src="http://img.blog.csdn.net/20160218111637123?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></span>
+<p align="left"><span style="white-space:pre"><span style="white-space:pre"></span></span></p>
+<p align="left">2.文件/目录说明</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; objects_common.cpp：通用接口标准主题定义集合，如添加新主题就在这里定义。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORBMap.hpp：对象请求节点链表管理（驱动节点）</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORBSet.hpp：对象请求节点链表管理（非驱动节点）</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Publication.cpp/&nbsp;Publication.hpp：在不同的发布中遍历使用</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Subscription.cpp/&nbsp;Subscription.hpp:在不同的发布中遍历使用</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORB.cpp：uORB的实现</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORB.h：uORB的头文件</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORBCommon.hpp:uORB公共部分变量定义实现</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORBCommunicator.hpp：远程订阅的接口实现，实现了对不同的通信通道管理，如添加、移除订阅者，可以基于TCP/IP或者fastRPC；传递给通信链路的实现，以提供在信道上接收信息的回调。</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORBDevices_nuttx.cpp：节点操作，close，open，read，write等</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORbMain.cpp：uORB入口</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; uORBManager.hpp：uORB功能函数实现的头文件</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uORBManager_nuttx.cpp:uORB功能函数的实现（Nuttx）</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;uORBManager_posix.cpp:uORB功能函数的实现（Posix）</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;uORBTest_UnitTest.cpp:uORB测试</p>
+<p align="left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;uORBTest_UnitTest.hpp:uORB测试头文件，包括主题定义和声明等</p>
+<br>
+<p align="left"><span style="white-space:pre"><span style="white-space:pre"><br>
+</span></span></p>
+<br>
+<p><span style="white-space:pre"><br>
+</span><br>
+</p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.11-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" ArticleId="50684450" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/xiao2yizhizai/article/details/50684300';">上一篇</span><a href="/xiao2yizhizai/article/details/50684300" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">pixhawk自学笔记之创建一个应用程序（按官网）</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/xiao2yizhizai/article/details/50684959';">下一篇</span><a href="/xiao2yizhizai/article/details/50684959" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">pixhawk自学笔记之px4程序启动顺序</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('6098528','xiao2yizhizai','foot','50684450');">pixhawk开源飞控相关<em>（7）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('6098528', 'xiao2yizhizai','foot','50684450');
+        });
+    </script>
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/xiao2yizhizai/svc/GetSuggestContent/50684450",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "50684450",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'pixhawk自学笔记之uorb学习总结' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!-- 广告位开始 -->
+<ins data-revive-zoneid="71" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!-- 广告位结束 -->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '50684450';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/xiao2yizhizai/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/xiao2yizhizai" target="_blank">
+    <img src="http://avatar.csdn.net/6/0/A/1_xiao2yizhizai.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/xiao2yizhizai" class="user_name" target="_blank">xiao2yizhizai</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=xiao2yizhizai','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>2907次</span></li>
+    <li>积分：<span>140</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog2.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：140 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>11篇</span></li>
+    <li>转载：<span>1篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>6条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/xiao2yizhizai/article/category/2891987" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Linux 内核相关</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/xiao2yizhizai/article/category/3212209" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">git版本管理</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/xiao2yizhizai/article/category/6098528" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">pixhawk开源飞控相关</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/xiao2yizhizai/article/category/6146450" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">pid控制算法</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/xiao2yizhizai/article/category/6160876" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">滤波算法</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/xiao2yizhizai/article/month/2016/03">2016年03月</a><span>(7)</span></li><li><a href="/xiao2yizhizai/article/month/2016/02">2016年02月</a><span>(5)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/xiao2yizhizai/article/details/50684959" title="pixhawk自学笔记之px4程序启动顺序">pixhawk自学笔记之px4程序启动顺序</a><span>(406)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50700486" title="pixhawk自学笔记之从串口获取光流数据">pixhawk自学笔记之从串口获取光流数据</a><span>(390)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50684038" title="pixhawk自学笔记之windows下的cmake编译">pixhawk自学笔记之windows下的cmake编译</a><span>(361)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50684450" title="pixhawk自学笔记之uorb学习总结">pixhawk自学笔记之uorb学习总结</a><span>(324)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50684300" title="pixhawk自学笔记之创建一个应用程序（按官网）">pixhawk自学笔记之创建一个应用程序（按官网）</a><span>(299)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50803147" title="pixhawk自学笔记之环境搭建注意细节">pixhawk自学笔记之环境搭建注意细节</a><span>(294)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50786168" title="pixhawk自学笔记之px4遥控信号部分">pixhawk自学笔记之px4遥控信号部分</a><span>(187)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50807298" title="pixhawk自学笔记之Mixer学习">pixhawk自学笔记之Mixer学习</a><span>(156)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/51025726" title="PID连续控制算法的表达式以及C语言实现">PID连续控制算法的表达式以及C语言实现</a><span>(102)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/51025692" title="PID概述以及在无人机中的应用">PID概述以及在无人机中的应用</a><span>(97)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/xiao2yizhizai/article/details/50700486" title="pixhawk自学笔记之从串口获取光流数据">pixhawk自学笔记之从串口获取光流数据</a><span>(3)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50684300" title="pixhawk自学笔记之创建一个应用程序（按官网）">pixhawk自学笔记之创建一个应用程序（按官网）</a><span>(2)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50684959" title="pixhawk自学笔记之px4程序启动顺序">pixhawk自学笔记之px4程序启动顺序</a><span>(1)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/51026151" title="简单常用滤波算法C语言实现">简单常用滤波算法C语言实现</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/51025726" title="PID连续控制算法的表达式以及C语言实现">PID连续控制算法的表达式以及C语言实现</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/51025692" title="PID概述以及在无人机中的应用">PID概述以及在无人机中的应用</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50807298" title="pixhawk自学笔记之Mixer学习">pixhawk自学笔记之Mixer学习</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50803147" title="pixhawk自学笔记之环境搭建注意细节">pixhawk自学笔记之环境搭建注意细节</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50786168" title="pixhawk自学笔记之px4遥控信号部分">pixhawk自学笔记之px4遥控信号部分</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiao2yizhizai/article/details/50684450" title="pixhawk自学笔记之uorb学习总结">pixhawk自学笔记之uorb学习总结</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/evan_man/article/details/51328628" 
+target="_blank">*EventBus的使用与深入学习</a></li>
+<li><a href="http://blog.csdn.net/xuehuayous/article/details/51324656" 
+target="_blank">*Android 拍照、选择图片并裁剪</a></li>
+<li><a href="http://blog.csdn.net/lw_ghy/article/details/51420027" 
+
+target="_blank">*spark性能调优：开发调优</a></li>
+<li><a 
+
+href="http://blog.csdn.net/u013064109/article/details/51416389"target="_blank">*浅谈android中图片处理之色彩特效处理ColorMatrix(三)</a></li>
+<li><a href="http://blog.csdn.net/gj19890923/article/details/51333899" 
+target="_blank">*neutron-server的启动流程(一)</a></li>
+<li><a href="http://blog.csdn.net/u010143774/article/details/51460947" target="_blank">*Hadoop中Map端shuffle源码解析</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/xiao2yizhizai/article/details/50684300#comments">pixhawk自学笔记之创建一个应用程序（按官网）</a>
+    <p style="margin:0px;"><a href="/momo4035" class="user_name">momo4035</a>:
+博主你好！我按照你的在命令行下编译了一下，但是出现好多错误，我不知道是什么原因，能不能留下一个联系方...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/xiao2yizhizai/article/details/50684300#comments">pixhawk自学笔记之创建一个应用程序（按官网）</a>
+    <p style="margin:0px;"><a href="/momo4035" class="user_name">momo4035</a>:
+博主你好！我按照你的在命令行下编译了一下，但是出现好多错误，我不知道是什么原因，能不能留下一个联系方...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/xiao2yizhizai/article/details/50684959#comments">pixhawk自学笔记之px4程序启动顺序</a>
+    <p style="margin:0px;"><a href="/qikai820" class="user_name">qikai820</a>:
+空闲任务是idle
+    </p>
+    </li>
+    <li>
+   
+         <a href="/xiao2yizhizai/article/details/50700486#comments">pixhawk自学笔记之从串口获取光流数据</a>
+    <p style="margin:0px;"><a href="/IrismoonWang" class="user_name">IrismoonWang</a>:
+@可以去px4的google小组里面搜索，有人贴出了源码:
+    </p>
+    </li>
+    <li>
+   
+         <a href="/xiao2yizhizai/article/details/50700486#comments">pixhawk自学笔记之从串口获取光流数据</a>
+    <p style="margin:0px;"><a href="/xiao2yizhizai" class="user_name">xiao2yizhizai</a>:
+@bingtuohun:你可以指定串口，然后用read函数打开，write函数写数据。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/xiao2yizhizai/article/details/50700486#comments">pixhawk自学笔记之从串口获取光流数据</a>
+    <p style="margin:0px;"><a href="/bingtuohun" class="user_name">bingtuohun</a>:
+你好，我想在官方固件上，增加串口通讯功能给，和pixhawk通讯，应该从哪里开始下手那？
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=4954347"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+</body>
+</html>   
+ 
