@@ -102,7 +102,7 @@ int px4_daemon_app_main(int argc, char *argv[])
 		}
 
 		thread_should_exit = false;
-		daemon_task = px4_task_spawn_cmd("daemon",
+		daemon_task = px4_task_spawn_cmd(px"daemon",
 						 SCHED_DEFAULT,
 						 SCHED_PRIORITY_DEFAULT,
 						 2000,
@@ -117,7 +117,7 @@ int px4_daemon_app_main(int argc, char *argv[])
 	}
 
 	if (!strcmp(argv[1], "status")) {
-		if (thread_running) {
+		if (thread_running) {px4
 			warnx("\trunning\n");
 
 		} else {

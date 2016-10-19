@@ -42,10 +42,10 @@
 #include <systemlib/systemlib.h>
 
 extern bool thread_running;
-int daemon_task;             /**< Handle of deamon task / thread */
+int daemon_task_0;             /**< Handle of deamon task / thread */
 namespace px4
 {
-bool task_should_exit = false;
+bool task_should_exit_0 = false;
 }
 using namespace px4;
 
@@ -66,9 +66,9 @@ int subscriber_main(int argc, char *argv[])
 			exit(0);
 		}
 
-		task_should_exit = false;
+		task_should_exit_0 = false;
 
-		daemon_task = px4_task_spawn_cmd("subscriber",
+		daemon_task_0 = px4_task_spawn_cmd("subscriber",
 						 SCHED_DEFAULT,
 						 SCHED_PRIORITY_MAX - 5,
 						 2000,
@@ -79,7 +79,7 @@ int subscriber_main(int argc, char *argv[])
 	}
 
 	if (!strcmp(argv[1], "stop")) {
-		task_should_exit = true;
+		task_should_exit_0 = true;
 		exit(0);
 	}
 

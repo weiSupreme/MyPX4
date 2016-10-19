@@ -180,6 +180,9 @@ set(config_module_list
 
 	# Hardware test
 	#examples/hwtest
+	
+	#examples/publisher
+	#examples/subscriber
 )
 
 set(config_extra_builtin_cmds
