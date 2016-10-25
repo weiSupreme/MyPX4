@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmodules__mc_pos_control_multiplatform.a  CMakeFiles/modules__mc_pos_control_multiplatform.dir/mc_pos_control_main.cpp.o CMakeFiles/modules__mc_pos_control_multiplatform.dir/mc_pos_control_start_nuttx.cpp.o CMakeFiles/modules__mc_pos_control_multiplatform.dir/mc_pos_control.cpp.o
-/usr/bin/ranlib libmodules__mc_pos_control_multiplatform.a
